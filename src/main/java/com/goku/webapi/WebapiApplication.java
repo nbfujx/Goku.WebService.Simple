@@ -11,8 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
  */
 // Spring Boot 应用的标识
 @SpringBootApplication
-@MapperScan("com.goku.webapi.mapper")
 @ServletComponentScan
+@MapperScan("com.goku.webapi.mapper")
 public class WebapiApplication {
 
     public static void main(String[] args) {
