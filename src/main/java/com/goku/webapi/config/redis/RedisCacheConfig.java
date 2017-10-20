@@ -1,4 +1,4 @@
-package com.goku.webapi.config;
+package com.goku.webapi.config.redis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
