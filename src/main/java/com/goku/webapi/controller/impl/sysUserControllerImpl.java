@@ -33,7 +33,7 @@ public class sysUserControllerImpl implements sysUserController {
 
     @Override
     @RequestMapping(value="getUser/{id}", method = RequestMethod.GET)
-    @RequiresPermissions({"sysUser:selectByid"})
+    @RequiresPermissions(value={"sysUser:selectByid"})
     public String  selectByid(@PathVariable String id) {
         this.logger.info("selectByid");
         return   JSON.toJSONString (sysuserService.selectByid(id));

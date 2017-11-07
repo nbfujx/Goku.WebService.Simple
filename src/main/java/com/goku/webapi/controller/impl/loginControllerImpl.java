@@ -35,4 +35,17 @@ public class loginControllerImpl implements loginController {
         }
         return "cg";
     }
+
+
+    @Override
+    @RequestMapping(value = "/notAuthc", method = RequestMethod.GET)
+    public String notAuthc() {
+        return "Not Authc";
+    }
+
+    @Override
+    @RequestMapping(value = "/notAuthz", method = RequestMethod.GET)
+    public String notAuthz() {
+        return "Not Permission";
+    }
 }

@@ -5,6 +5,7 @@ import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -80,17 +81,22 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager());
 
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
+        LogoutFilter logoutFilter = new LogoutFilter();
+        logoutFilter.setRedirectUrl("/login");
+        shiroFilterFactoryBean.setFilters(filters);
+        shiroFilterFactoryBean.setLoginUrl("/notAuthc");
         shiroFilterFactoryBean.setFilters(filters);
 
         Map<String, String> filterChainDefinitionManager = new LinkedHashMap<String, String>();
         filterChainDefinitionManager.put("/login", "anon");
         filterChainDefinitionManager.put("/logout", "logout");
-        filterChainDefinitionManager.put("/sysUser/*", "authc,perms[sysUser:*]");//"authc,perms[sysUser:*]");
+        filterChainDefinitionManager.put("/sysUser/*", "authc,perms");//"authc,perms[sysUser:*]");
+        filterChainDefinitionManager.put("/sysMenu/*", "authc,perms");//"authc,perms[sysUser:*]");
         //filterChainDefinitionManager.put("/*", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionManager);
 
         shiroFilterFactoryBean.setSuccessUrl("/");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/notAuthz");
         return shiroFilterFactoryBean;
     }
 
@@ -98,7 +104,7 @@ public class ShiroConfig {
      * DefaultAdvisorAutoProxyCreator，Spring的一个bean，由Advisor决定对哪些类的方法进行AOP代理。
      */
     @Bean
-    @ConditionalOnMissingBean
+    @DependsOn("lifecycleBeanPostProcessor")
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator defaultAAP = new DefaultAdvisorAutoProxyCreator();
         defaultAAP.setProxyTargetClass(true);

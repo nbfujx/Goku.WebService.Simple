@@ -5,4 +5,6 @@ package com.goku.webapi.controller;
  */
 public interface loginController {
     String login(String userName, String password,boolean rememberMe);
+    String notAuthc();
+    String notAuthz();
 }
