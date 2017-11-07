@@ -24,32 +24,13 @@ public class sysUserServiceImpl implements sysUserService {
     private Logger logger = LoggerFactory.getLogger(sysUserServiceImpl.class);
 
     @Autowired
-    private sysUserMapper sysusermapper;
-
-    @Autowired
     private sysUserExtMapper sysuserextmapper;
-
-
-    @Override
-    public sysUser selectByUsername(String username) {
-        return sysuserextmapper.selectByUsername(username);
-    }
 
     @Override
     public sysUser selectByid(String id) {
         this.logger.info("selectByid");
-        return sysusermapper.selectByPrimaryKey(id);
+        return sysuserextmapper.selectByPrimaryKey(id);
     }
 
-    @Override
-    public List<Map<String, String>> selectUserByOrgid(String orgid,String orderSort,String orderFiled) {
-        List<Map<String, String>> users= sysuserextmapper.selectUserByOrgid(orgid,orderSort,orderFiled);
-        return users;
-    }
-
-    @Override
-    public Map<String, String> selectUserByUsername(String username) {
-        return sysuserextmapper.selectUserByUsername(username);
-    }
 
 }

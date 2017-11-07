@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import com.goku.webapi.controller.sysUserController;
 
 import com.goku.webapi.service.sysUserService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,25 +26,14 @@ import java.util.Map;
 @RequestMapping("sysUser")
 public class sysUserControllerImpl implements sysUserController {
 
-
     private Logger logger = LoggerFactory.getLogger(sysUserControllerImpl.class);
 
     @Autowired
     sysUserService sysuserService;
 
     @Override
-    @RequestMapping(value="getUserPassword", method = RequestMethod.GET)
-    public String getUserPassword(){
-        this.logger.info("getUserPassword");
-        PageHelper.startPage(1, 1);
-        List<Map<String, String>> list = sysuserService.selectUserByOrgid("1","desc","id");
-        PageInfo pageInfo = new PageInfo(list);
-        Page page = (Page) list;
-        return "PageInfo: " + JSON.toJSONString(pageInfo) + ", Page: " + JSON.toJSONString(page);
-    }
-
-    @Override
     @RequestMapping(value="getUser/{id}", method = RequestMethod.GET)
+    @RequiresPermissions({"sysUser:selectByid"})
     public String  selectByid(@PathVariable String id) {
         this.logger.info("selectByid");
         return   JSON.toJSONString (sysuserService.selectByid(id));
