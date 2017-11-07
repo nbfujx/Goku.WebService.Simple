@@ -22,7 +22,7 @@
     </properties>
 
     <dependencies>
-        <!-- spring-boot的web启动的jar包 -->
+        <!-- spring-boot-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -123,6 +123,7 @@
             <artifactId>shiro-ehcache</artifactId>
             <version>${shiro.version}</version>
         </dependency>
+        <!--json格式化-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
