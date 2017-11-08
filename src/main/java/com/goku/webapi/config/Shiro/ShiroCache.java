@@ -1,35 +1,33 @@
 package com.goku.webapi.config.Shiro;
 
+import org.apache.shiro.cache.Cache;
+import org.apache.shiro.cache.CacheException;
+import org.springframework.data.redis.core.RedisTemplate;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheException;
-import org.springframework.data.redis.core.RedisTemplate;
-
 /**
- * Created by nbfujx on 2017-11-08.
+ * Created by nbfujx on 2017/11/8.
  */
-@SuppressWarnings("unchecked")
-public class ShiroCache<K, V> implements Cache<K, V> {
+public class  ShiroCache<K, V> implements Cache<K, V> {
 
-    private static final String REDIS_SHIRO_CACHE = "Goku.WebService.Simple-cache:";
+    private static final String REDIS_SHIRO_CACHE = "shiro-cache:";
+    private static final long GLOB_EXPIRE = 30;
     private String cacheKey;
     private RedisTemplate<K, V> redisTemplate;
-    private long globExpire = 30;
 
-    @SuppressWarnings("rawtypes")
-    public ShiroCache(String name, RedisTemplate client) {
+    public ShiroCache(RedisTemplate<K, V> client, String name) {
         this.cacheKey = REDIS_SHIRO_CACHE + name + ":";
         this.redisTemplate = client;
     }
 
     @Override
     public V get(K key) throws CacheException {
-        redisTemplate.boundValueOps(getCacheKey(key)).expire(globExpire, TimeUnit.MINUTES);
+        redisTemplate.boundValueOps(getCacheKey(key)).expire(GLOB_EXPIRE, TimeUnit.MINUTES);
         return redisTemplate.boundValueOps(getCacheKey(key)).get();
     }
 
