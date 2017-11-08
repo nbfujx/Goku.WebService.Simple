@@ -1,5 +1,6 @@
 package com.goku.webapi.config.redis;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -48,6 +49,7 @@ public class RedisCacheConfig  extends CachingConfigurerSupport {
     }
 
     private void setSerializer(StringRedisTemplate template){
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);

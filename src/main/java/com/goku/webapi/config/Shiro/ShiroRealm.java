@@ -25,6 +25,9 @@ public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     private sysMenuExtMapper sysmenuextmapper;
 
+    /**
+     *权限验证
+     * **/
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         sysUser user = sysuserextmapper.selectByUsername((String) principalCollection.getPrimaryPrincipal());
@@ -44,6 +47,9 @@ public class ShiroRealm extends AuthorizingRealm {
 
     }
 
+    /**
+     * 登录验证
+     * **/
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;

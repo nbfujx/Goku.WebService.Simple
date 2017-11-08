@@ -1,13 +1,18 @@
 package com.goku.webapi.config.Shiro;
 
+import com.goku.webapi.config.redis.RedisCacheManager;
+import com.goku.webapi.config.redis.RedisSessionDAO;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.LogoutFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +20,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,6 +32,7 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
+
     /**
      * LifecycleBeanPostProcessor，这是个DestructionAwareBeanPostProcessor的子类，
      * 负责org.apache.shiro.util.Initializable类型bean的生命周期的，初始化和销毁。
@@ -45,18 +52,28 @@ public class ShiroConfig {
     @DependsOn("lifecycleBeanPostProcessor")
     public ShiroRealm shiroRealm() {
         ShiroRealm realm = new ShiroRealm();
-        realm.setCacheManager(ehCacheManager());
+        realm.setCacheManager(redisCacheManager());
         return realm;
     }
 
-    /**
-     * EhCacheManager，缓存管理，用户登陆成功后，把用户信息和权限信息缓存起来，
-     * 然后每次用户请求时，放入用户的session中，如果不设置这个bean，每个请求都会查询一次数据库。
-     */
-    @Bean(name = "ehCacheManager")
-    @DependsOn("lifecycleBeanPostProcessor")
-    public EhCacheManager ehCacheManager() {
-        return new EhCacheManager();
+    @Bean
+    public RedisCacheManager redisCacheManager() {
+        return new RedisCacheManager();
+    }
+
+    @Bean(name = "redisSessionDAO")
+    public RedisSessionDAO sessionDAO() {
+        RedisSessionDAO sessionDAO = new RedisSessionDAO();
+        return sessionDAO;
+    }
+
+    @Bean
+    public SessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setSessionDAO(sessionDAO());
+        sessionManager.setGlobalSessionTimeout(1800);
+        sessionManager.setCacheManager(redisCacheManager());
+        return sessionManager;
     }
 
     /**
@@ -66,7 +83,8 @@ public class ShiroConfig {
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(shiroRealm());
-        securityManager.setCacheManager(ehCacheManager());
+        securityManager.setCacheManager(redisCacheManager());
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
 
