@@ -29,7 +29,7 @@ public enum returnCode {
 
     @Override
     public String toString() {
-        return "ErrorCode{" +
+        return "returnCode{" +
                 "code=" + code +
                 ", desc='" + desc + '\'' +
                 '}';

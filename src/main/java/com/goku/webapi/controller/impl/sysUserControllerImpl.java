@@ -7,6 +7,8 @@ import com.github.pagehelper.PageInfo;
 import com.goku.webapi.controller.sysUserController;
 
 import com.goku.webapi.service.sysUserService;
+import com.goku.webapi.util.enums.returnCode;
+import com.goku.webapi.util.message.returnMsg;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,6 @@ public class sysUserControllerImpl implements sysUserController {
     @RequiresPermissions(value={"sysUser:selectByid"})
     public String  selectByid(@PathVariable String id) {
         this.logger.info("selectByid");
-        return   JSON.toJSONString (sysuserService.selectByid(id));
+        return JSON.toJSONString (new returnMsg(returnCode.SUCCESS,sysuserService.selectByid(id)));
     }
 }

@@ -81,20 +81,18 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager());
 
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
-        LogoutFilter logoutFilter = new LogoutFilter();
-        logoutFilter.setRedirectUrl("/login");
         shiroFilterFactoryBean.setFilters(filters);
-        shiroFilterFactoryBean.setLoginUrl("/notAuthc");
-        shiroFilterFactoryBean.setFilters(filters);
+
 
         Map<String, String> filterChainDefinitionManager = new LinkedHashMap<String, String>();
         filterChainDefinitionManager.put("/login", "anon");
-        filterChainDefinitionManager.put("/logout", "logout");
+        filterChainDefinitionManager.put("/logout", "anon");
         filterChainDefinitionManager.put("/sysUser/*", "authc,perms");//"authc,perms[sysUser:*]");
         filterChainDefinitionManager.put("/sysMenu/*", "authc,perms");//"authc,perms[sysUser:*]");
-        //filterChainDefinitionManager.put("/*", "authc");
+        filterChainDefinitionManager.put("/*", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionManager);
 
+        shiroFilterFactoryBean.setLoginUrl("/notAuthc");
         shiroFilterFactoryBean.setSuccessUrl("/");
         shiroFilterFactoryBean.setUnauthorizedUrl("/notAuthz");
         return shiroFilterFactoryBean;
