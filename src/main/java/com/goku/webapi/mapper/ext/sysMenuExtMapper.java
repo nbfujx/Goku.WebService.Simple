@@ -10,5 +10,11 @@ import java.util.List;
  * Created by nbfujx on 2017-11-07.
  */
 public interface sysMenuExtMapper extends sysMenuMapper {
+    /**
+    * @Author:nbfujx
+    * @Param:
+    * @param id  用户id
+    * @Date: 13:44 2017-11-13
+    */
     List<sysMenu> selectByUserId(@Param("id") String id);
 }

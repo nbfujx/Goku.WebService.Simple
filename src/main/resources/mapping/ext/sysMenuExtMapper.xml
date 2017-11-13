@@ -19,6 +19,6 @@
     select
        c.menu_id, c.parent_id, c.name, c.url, c.perms, c.type, c.icon, c.order_num
     from sys_user a,sys_user_role b,sys_menu c,sys_role_menu d
-    where a.status='1' and c.type='1' and a.id = #{id,jdbcType=VARCHAR}
+    where a.status='1' and c.type='2' and a.id = #{id,jdbcType=VARCHAR}
   </select>
 </mapper>
