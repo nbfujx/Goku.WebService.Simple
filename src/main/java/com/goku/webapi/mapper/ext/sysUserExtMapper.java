@@ -17,4 +17,6 @@ public interface sysUserExtMapper extends sysUserMapper {
     */
     sysUser selectByUsername(@Param("username") String username);
 
+
+
 }

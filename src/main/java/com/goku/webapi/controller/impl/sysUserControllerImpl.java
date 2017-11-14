@@ -9,6 +9,10 @@ import com.goku.webapi.controller.sysUserController;
 import com.goku.webapi.service.sysUserService;
 import com.goku.webapi.util.enums.returnCode;
 import com.goku.webapi.util.message.returnMsg;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +30,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("sysUser")
+@Api(value="用户管理")
 public class sysUserControllerImpl implements sysUserController {
 
     private Logger logger = LoggerFactory.getLogger(sysUserControllerImpl.class);
@@ -34,6 +39,10 @@ public class sysUserControllerImpl implements sysUserController {
     sysUserService sysuserService;
 
     @Override
+    @ApiOperation(value="用户查询", notes="用户信息查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "String",paramType="path"),
+    })
     @RequestMapping(value="getUser/{id}", method = RequestMethod.GET)
     @RequiresPermissions(value={"sysUser:selectByid"})
     public String  selectByid(@PathVariable String id) {

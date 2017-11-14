@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.goku.webapi.controller.loginController;
 import com.goku.webapi.util.enums.returnCode;
 import com.goku.webapi.util.message.returnMsg;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -30,6 +35,7 @@ import java.util.Map;
  * Created by nbfujx on 2017-11-07.
  */
 @RestController
+@Api(value="登录验证")
 public class loginControllerImpl implements loginController,ErrorController {
 
 
@@ -38,7 +44,13 @@ public class loginControllerImpl implements loginController,ErrorController {
     @Autowired
     private ErrorAttributes errorAttributes;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @ApiOperation(value="用户登录", notes="用户登录校验")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String" ,paramType="query"),
+        @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String" ,paramType="query"),
+        @ApiImplicitParam(name = "rememberMe", value = "记住用户", required = true, dataType = "String" ,paramType="query")
+    })
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(
             @RequestParam(value = "username", required = true) String userName,
             @RequestParam(value = "password", required = true) String password,
@@ -59,7 +71,8 @@ public class loginControllerImpl implements loginController,ErrorController {
 
 
     @Override
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @ApiOperation(value="用户退出", notes="用户退出校验")
     public String logout() {
         Subject subject = SecurityUtils.getSubject();
         try {
@@ -73,18 +86,21 @@ public class loginControllerImpl implements loginController,ErrorController {
 
     @Override
     @RequestMapping(value = "/notAuthc", method = RequestMethod.GET)
+    @ApiIgnore
     public String notAuthc() {
         return JSON.toJSONString (new  returnMsg(returnCode.NOTAUTHC));
     }
 
     @Override
     @RequestMapping(value = "/notAuthz", method = RequestMethod.GET)
+    @ApiIgnore
     public String notAuthz() {
         return  JSON.toJSONString (new  returnMsg(returnCode.NOTAUTHZ));
     }
 
     @Override
     @RequestMapping(value =ERROR_PATH)
+    @ApiIgnore
     public String error(HttpServletRequest request)
     {
         Map<String, Object> body = getErrorAttributes(request, getTraceParameter(request));
