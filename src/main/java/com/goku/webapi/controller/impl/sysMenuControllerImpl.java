@@ -26,7 +26,7 @@ public class sysMenuControllerImpl implements sysMenuController {
     @Override
     @RequestMapping(value="getMenu/{id}", method = RequestMethod.GET)
     @RequiresPermissions(value={"sysMenu:selectByid"})
-    public String  selectByid(@PathVariable long id) {
+    public String  selectByid(@PathVariable String id) {
         return JSON.toJSONString (new returnMsg(returnCode.SUCCESS,sysmenuService.selectByid(id)));
     }
 }

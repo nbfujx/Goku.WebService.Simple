@@ -5,7 +5,6 @@ import com.goku.webapi.mapper.ext.sysUserExtMapper;
 import com.goku.webapi.model.sysMenu;
 import com.goku.webapi.model.sysRole;
 import com.goku.webapi.model.sysUser;
-import com.goku.webapi.service.sysUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

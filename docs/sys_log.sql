@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : mysqlimis
 Source Server Version : 50151
 Source Host           : 10.1.51.234:3306
-Source Database       : renren-security
+Source Database       : goku_db
 
 Target Server Type    : MYSQL
 Target Server Version : 50151
 File Encoding         : 65001
 
-Date: 2017-11-13 09:57:49
+Date: 2017-11-14 13:09:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` varchar(32) NOT NULL,
   `username` varchar(50) DEFAULT NULL COMMENT '用户名',
   `operation` varchar(50) DEFAULT NULL COMMENT '用户操作',
   `method` varchar(200) DEFAULT NULL COMMENT '请求方法',

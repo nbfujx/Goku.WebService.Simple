@@ -8,7 +8,7 @@ public class sysConfig {
      *
      * @mbg.generated
      */
-    private Long id;
+    private String id;
 
     /**
      *
@@ -54,7 +54,7 @@ public class sysConfig {
      *
      * @mbg.generated
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -66,8 +66,8 @@ public class sysConfig {
      *
      * @mbg.generated
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     /**

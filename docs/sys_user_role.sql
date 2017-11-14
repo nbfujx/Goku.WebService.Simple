@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : mysqlimis
 Source Server Version : 50151
 Source Host           : 10.1.51.234:3306
-Source Database       : renren-security
+Source Database       : goku_db
 
 Target Server Type    : MYSQL
 Target Server Version : 50151
 File Encoding         : 65001
 
-Date: 2017-11-07 09:35:57
+Date: 2017-11-14 13:11:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,8 +20,8 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户ID',
-  `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
+  `id` varchar(32) NOT NULL,
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `role_id` varchar(32) DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与角色对应关系';

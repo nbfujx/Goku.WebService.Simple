@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mysql
-Source Server Version : 50715
-Source Host           : 192.168.1.107:3306
-Source Database       : jfinaloa
+Source Server         : mysqlimis
+Source Server Version : 50151
+Source Host           : 10.1.51.234:3306
+Source Database       : goku_db
 
 Target Server Type    : MYSQL
-Target Server Version : 50715
+Target Server Version : 50151
 File Encoding         : 65001
 
-Date: 2017-11-13 09:35:06
+Date: 2017-11-14 13:10:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;

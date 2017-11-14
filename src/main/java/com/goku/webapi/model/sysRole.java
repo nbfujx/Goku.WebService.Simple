@@ -10,7 +10,7 @@ public class sysRole {
      *
      * @mbg.generated
      */
-    private Long roleId;
+    private String roleId;
 
     /**
      *
@@ -37,7 +37,7 @@ public class sysRole {
      *
      * @mbg.generated
      */
-    private Long createUserId;
+    private String createUserId;
 
     /**
      *
@@ -56,7 +56,7 @@ public class sysRole {
      *
      * @mbg.generated
      */
-    public Long getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
@@ -68,8 +68,8 @@ public class sysRole {
      *
      * @mbg.generated
      */
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId == null ? null : roleId.trim();
     }
 
     /**
@@ -128,7 +128,7 @@ public class sysRole {
      *
      * @mbg.generated
      */
-    public Long getCreateUserId() {
+    public String getCreateUserId() {
         return createUserId;
     }
 
@@ -140,8 +140,8 @@ public class sysRole {
      *
      * @mbg.generated
      */
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
+    public void setCreateUserId(String createUserId) {
+        this.createUserId = createUserId == null ? null : createUserId.trim();
     }
 
     /**
