@@ -22,10 +22,6 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes = WebapiApplication.class)
 public class sysUserExtMapperTest {
 
-
-
-
-
     @Autowired
     sysUserExtMapper sysuserextmapper;
 

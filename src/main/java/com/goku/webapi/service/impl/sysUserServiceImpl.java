@@ -4,7 +4,6 @@ package com.goku.webapi.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.goku.webapi.mapper.ext.sysUserExtMapper;
-import com.goku.webapi.mapper.sysUserMapper;
 import com.goku.webapi.model.sysUser;
 import com.goku.webapi.service.sysUserService;
 import org.slf4j.Logger;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 
 import java.util.List;
-import java.util.Map;
 
 
 /**

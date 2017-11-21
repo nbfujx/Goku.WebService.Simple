@@ -38,24 +38,70 @@ public class sysMenuControllerImpl implements sysMenuController {
     }
 
     @Override
+    @ApiOperation(value="菜单查询", notes="菜单列表查询")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "菜单名称", dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "type", value = "菜单类别", dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "module_id", value = "模块id", dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "orderFiled", value = "", dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "orderSort", value = "", dataType = "String",paramType="query"),
+            @ApiImplicitParam(name = "pageindex", value = "当前页", dataType = "int",paramType="query"),
+            @ApiImplicitParam(name = "pagenum", value = "页大小", dataType = "int",paramType="query"),
+    })
+    @RequestMapping(value="getMenuList", method = RequestMethod.GET)
+    @RequiresPermissions(value={"sysMenu:getMenuList"})
     public String selectMenuList(@RequestParam(required=false) String name,@RequestParam(required=false)  String type,@RequestParam(required=false)  String module_id,
                                   @RequestParam(required=false) String orderFiled, @RequestParam(required=false) String orderSort,
                                   @RequestParam  int pageindex, @RequestParam int pagenum) {
-        return null;
+          return JSON.toJSONString (new returnMsg(returnCode.SUCCESS,
+                sysmenuService.selectMenuList(name,type,module_id,orderFiled,orderSort,pageindex,pagenum)));
     }
 
     @Override
-    public String addMenu(sysMenu symenu) {
-        return null;
+    @ApiOperation(value="菜单新增", notes="用户菜单修改")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "symenu", value = "菜单", required = true, dataType = "sysMenu",paramType="body"),
+    })
+    @RequestMapping(value="addMenu", method = RequestMethod.POST)
+    @RequiresPermissions(value={"sysMenu:addMenu"})
+    public String addMenu(@RequestBody  sysMenu symenu) {
+        int result=sysmenuService.addMenu(symenu);
+        if(result>0) {
+            return JSON.toJSONString (new returnMsg(returnCode.SUCCESS));
+        }else{
+            return JSON.toJSONString (new returnMsg(returnCode.ERROR));
+        }
     }
 
     @Override
-    public String modifyMenu(sysMenu symenu) {
-        return null;
+    @ApiOperation(value="菜单修改", notes="用户菜单修改")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "symenu", value = "菜单", required = true, dataType = "sysMenu",paramType="body"),
+    })
+    @RequestMapping(value="modifyMenu", method = RequestMethod.POST)
+    @RequiresPermissions(value={"sysMenu:modifyMenu"})
+    public String modifyMenu(@RequestBody sysMenu symenu) {
+        int result=sysmenuService.modifyMenu(symenu);
+        if(result>0) {
+            return JSON.toJSONString (new returnMsg(returnCode.SUCCESS));
+        }else{
+            return JSON.toJSONString (new returnMsg(returnCode.ERROR));
+        }
     }
 
     @Override
-    public String deleteMenu(String id) {
-        return null;
+    @ApiOperation(value="菜单删除", notes="用户菜单删除")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "菜单id", required = true, dataType = "String",paramType="path"),
+    })
+    @RequestMapping(value="deleteMenu/{id}", method = RequestMethod.POST)
+    @RequiresPermissions(value={"sysMenu:deleteMenu"})
+    public String deleteMenu(@PathVariable  String id) {
+        int result=sysmenuService.deleteMenu(id);
+        if(result>0) {
+            return JSON.toJSONString (new returnMsg(returnCode.SUCCESS));
+        }else{
+            return JSON.toJSONString (new returnMsg(returnCode.ERROR));
+        }
     }
 }

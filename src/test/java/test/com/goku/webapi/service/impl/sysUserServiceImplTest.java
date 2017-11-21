@@ -1,4 +1,4 @@
-package com.goku.webapi.service.impl;
+package test.com.goku.webapi.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;

@@ -16,10 +16,33 @@
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="order_num" jdbcType="INTEGER" property="orderNum" />
   </resultMap>
-  <select id="selectByUserId" parameterType="java.lang.String" resultMap="sysMenuMap">
+  <select id="selectMenuByUserId" parameterType="java.lang.String" resultMap="sysMenuMap">
     select
        c.menu_id, c.parent_id, c.module_id,c.name, c.url, c.perms, c.type, c.icon, c.order_num
     from sys_user a,sys_user_role b,sys_menu c,sys_role_menu d
     where a.status='1' and c.type='2' and a.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectMenuList" resultMap="sysMenuMap">
+    select
+      menu_id, parent_id, module_id, name, url, perms, type, icon, order_num
+    from sys_menu
+    <where>
+      <if test="name != null">
+        <bind name="name" value="'%' + name + '%'" />
+        name LIKE #{name}
+      </if>
+      <if test="type != null">
+        type=#{type}
+      </if>
+      <if test="module_id != null">
+        module_id=#{module_id}
+      </if>
+    </where>
+    <if test="orderFiled != null" >
+      order by  ${orderFiled}
+      <if test="orderSort != null" >
+        ${orderSort}
+      </if>
+    </if>
   </select>
 </mapper>

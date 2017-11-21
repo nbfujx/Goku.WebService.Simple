@@ -55,7 +55,8 @@ public class sysUserControllerImpl implements sysUserController {
                                  @RequestParam(required=false)  String status, @RequestParam(required=false)  String org_id, @RequestParam(required=false)  String is_admin,
                                  @RequestParam(required=false)  String orderFiled, @RequestParam(required=false)  String orderSort,
                                  @RequestParam int pageindex, @RequestParam int pagenum) {
-         return JSON.toJSONString (new returnMsg(returnCode.SUCCESS,sysuserService.selectUserList(username,name,status,org_id,is_admin,orderFiled,orderSort,pageindex,pagenum)));
+         return JSON.toJSONString (new returnMsg(returnCode.SUCCESS,
+                 sysuserService.selectUserList(username,name,status,org_id,is_admin,orderFiled,orderSort,pageindex,pagenum)));
     }
 
     @Override
@@ -77,8 +78,8 @@ public class sysUserControllerImpl implements sysUserController {
     @RequestMapping(value="addUser", method = RequestMethod.POST)
     @RequiresPermissions(value={"sysUser:addUser"})
     public String addUser(@RequestBody sysUser sysuser) {
-        int returnint=sysuserService.addUser( sysuser);
-        if(returnint>0) {
+        int result=sysuserService.addUser( sysuser);
+        if(result>0) {
             return JSON.toJSONString (new returnMsg(returnCode.SUCCESS));
         }else{
             return JSON.toJSONString (new returnMsg(returnCode.ERROR));
@@ -93,8 +94,8 @@ public class sysUserControllerImpl implements sysUserController {
     @RequestMapping(value="modifyUser", method = RequestMethod.POST)
     @RequiresPermissions(value={"sysUser:modifyUser"})
     public String modifyUser(@RequestBody sysUser sysuser) {
-        int returnint=sysuserService.modifyUser(sysuser);
-        if(returnint>0) {
+        int result=sysuserService.modifyUser(sysuser);
+        if(result>0) {
             return JSON.toJSONString (new returnMsg(returnCode.SUCCESS));
         }else{
             return JSON.toJSONString (new returnMsg(returnCode.ERROR));
@@ -109,8 +110,8 @@ public class sysUserControllerImpl implements sysUserController {
     @RequestMapping(value="deleteUser/{id}", method = RequestMethod.POST)
     @RequiresPermissions(value={"sysUser:deleteUser"})
     public String deleteUser(@PathVariable  String id) {
-        int returnint=sysuserService.deleteUser(id);
-        if(returnint>0) {
+        int result=sysuserService.deleteUser(id);
+        if(result>0) {
             return JSON.toJSONString (new returnMsg(returnCode.SUCCESS));
         }else{
             return JSON.toJSONString (new returnMsg(returnCode.ERROR));
@@ -126,8 +127,8 @@ public class sysUserControllerImpl implements sysUserController {
     @RequestMapping(value="changeUserStatus/{id}/{status}", method = RequestMethod.POST)
     @RequiresPermissions(value={"sysUser:changeUserStatus"})
     public String changeUserStatus(@PathVariable String id, @PathVariable String status) {
-        int returnint=sysuserService.changeUserStatus(id,status);
-        if(returnint>0) {
+        int result=sysuserService.changeUserStatus(id,status);
+        if(result>0) {
             return JSON.toJSONString (new returnMsg(returnCode.SUCCESS));
         }else{
             return JSON.toJSONString (new returnMsg(returnCode.ERROR));

@@ -38,7 +38,7 @@ public class ShiroRealm extends AuthorizingRealm {
             info.addRole(userRole.getRoleName());
         }
         //赋予权限
-        for(sysMenu menu:sysmenuextmapper.selectByUserId(user.getId())){
+        for(sysMenu menu:sysmenuextmapper.selectMenuByUserId(user.getId())){
             info.addStringPermission(menu.getPerms());
         }
 
