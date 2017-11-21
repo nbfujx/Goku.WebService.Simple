@@ -2,6 +2,8 @@ package com.goku.webapi.util.dataview;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
 
+import java.util.List;
+
 /**
  * Created by nbfujx on 2017/11/21.
  */
@@ -12,7 +14,7 @@ public class TreeInfo {
     private boolean expand;
     private boolean selected;
     private boolean checked;
-    private TreeInfo children;
+    private List<TreeInfo> children;
 
     public String getId() {
         return id;
@@ -54,11 +56,11 @@ public class TreeInfo {
         this.checked = checked;
     }
 
-    public TreeInfo getChildren() {
+    public List<TreeInfo> getChildren() {
         return children;
     }
 
-    public void setChildren(TreeInfo children) {
+    public void setChildren(List<TreeInfo> children) {
         this.children = children;
     }
 }
