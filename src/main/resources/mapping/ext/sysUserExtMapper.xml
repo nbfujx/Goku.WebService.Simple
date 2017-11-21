@@ -39,4 +39,39 @@
         from sys_role a,sys_user_role b
         where a.role_id=b.role_id and user_id = #{id,jdbcType=VARCHAR}
     </select>
+    <select id="selectUserList" resultMap="sysUserMap">
+            select
+            id, username, password, name, sex, status, org_id, email, idcard, is_admin, sort,mobile
+            from sys_user
+            <where>
+                <if test="username != null">
+                    <bind name="username" value="'%' + username + '%'" />
+                    username LIKE #{username}
+                </if>
+                <if test="name != null">
+                    <bind name="name" value="'%' + name + '%'" />
+                    name LIKE #{name}
+                </if>
+                <if test="status != null">
+                    status=#{status}
+                </if>
+                <if test="org_id != null">
+                    org_id=#{org_id}
+                </if>
+                <if test="is_admin != null">
+                    is_admin=#{is_admin}
+                </if>
+            </where>
+            <if test="orderFiled != null" >
+                order by  ${orderFiled}
+                <if test="orderSort != null" >
+                    ${orderSort}
+                </if>
+            </if>
+    </select>
+    <update id="changeUserStatus" >
+        update sys_user
+            set status = #{status,jdbcType=CHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
 </mapper>

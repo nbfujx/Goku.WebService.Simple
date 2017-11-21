@@ -17,4 +17,5 @@ public interface sysMenuExtMapper extends sysMenuMapper {
     * @Date: 13:44 2017-11-13
     */
     List<sysMenu> selectByUserId(@Param("id") String id);
+
 }

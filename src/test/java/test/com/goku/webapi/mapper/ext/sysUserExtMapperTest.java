@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -19,6 +21,10 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = WebapiApplication.class)
 public class sysUserExtMapperTest {
+
+
+
+
 
     @Autowired
     sysUserExtMapper sysuserextmapper;
@@ -29,6 +35,11 @@ public class sysUserExtMapperTest {
         System.out.print( JSON.toJSONString (sysuser));
     }
 
+    @Test
+    public void selectUserList() throws Exception {
+        List<sysUser> sysuser=sysuserextmapper.selectUserList("nbfujx",null,null,null,null,null,null);
+        System.out.print( JSON.toJSONString (sysuser));
+    }
 
     @Test
     public void getpassword() throws Exception {
@@ -38,4 +49,9 @@ public class sysUserExtMapperTest {
         System.out.print(md5);
     }
 
+    @Test
+    public void changeUserStatus() throws Exception {
+       int i= sysuserextmapper.changeUserStatus("1","1");
+        System.out.print(i);
+    }
 }

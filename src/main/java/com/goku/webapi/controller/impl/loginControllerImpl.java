@@ -44,6 +44,7 @@ public class loginControllerImpl implements loginController,ErrorController {
     @Autowired
     private ErrorAttributes errorAttributes;
 
+    @Override
     @ApiOperation(value="用户登录", notes="用户登录校验")
     @ApiImplicitParams({
         @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String" ,paramType="query"),
