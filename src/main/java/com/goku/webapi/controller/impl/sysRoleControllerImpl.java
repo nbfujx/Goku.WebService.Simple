@@ -58,8 +58,8 @@ public class sysRoleControllerImpl implements sysRoleController {
     })
     @RequestMapping(value="addRole", method = RequestMethod.POST)
     @RequiresPermissions(value={"sysRole:addRole"})
-    public String addRole(@RequestBody sysRole addRole) {
-        int result=sysroleservice.addRole(addRole);
+    public String addRole(@RequestBody sysRole sysrole) {
+        int result=sysroleservice.addRole(sysrole);
         if(result>0) {
             return JSON.toJSONString (new returnMsg(returnCode.SUCCESS));
         }else{

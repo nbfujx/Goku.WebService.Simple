@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.goku.webapi.mapper.ext.sysMenuExtMapper;
 import com.goku.webapi.model.sysMenu;
 import com.goku.webapi.service.sysMenuService;
+import com.goku.webapi.util.dataview.TreeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,13 +34,18 @@ public class sysMenuServiceImpl implements sysMenuService {
     }
 
     @Override
+    public TreeInfo selectRoleTree() {
+        return null;
+    }
+
+    @Override
     public int addMenu(sysMenu symenu) {
         return sysmenumapper.insert(symenu);
     }
 
     @Override
     public int modifyMenu(sysMenu symenu) {
-        return sysmenumapper.updateByPrimaryKey(symenu);
+        return sysmenumapper.updateByPrimaryKeySelective(symenu);
     }
 
     @Override

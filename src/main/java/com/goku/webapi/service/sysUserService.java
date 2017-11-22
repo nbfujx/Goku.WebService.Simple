@@ -13,6 +13,7 @@ import java.util.Map;
  * Created by nbfujx on 2017/10/14.
  */
 public interface sysUserService {
+    @DataSource("master")
     sysUser selectByid(String id);
     PageInfo selectUserList(String username, String name, String status, String org_id,
                             String is_admin, String orderFiled, String orderSort, int pageindex, int pagenum);

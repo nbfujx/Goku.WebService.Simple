@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goku.webapi.mapper.ext.sysLogExtMapper">
+  <resultMap id="sysLogMap" type="com.goku.webapi.model.sysLog">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="operation" jdbcType="VARCHAR" property="operation" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <select id="selectLogList"  resultMap="sysLogMap">
+    select
+    id, username, operation, method, params, ip, create_date
+    from sys_log
+    <where>
+      <if test="username != null">
+        username=#{username}
+      </if>
+      <if test="startTime != null">
+        create_date&gt;=#{startTime}
+      </if>
+      <if test="endTime != null">
+        create_date&lt;=#{endTime}
+      </if>
+    </where>
+    <if test="orderFiled != null" >
+      order by  ${orderFiled}
+      <if test="orderSort != null" >
+        ${orderSort}
+      </if>
+    </if>
+  </select>
+
+</mapper>

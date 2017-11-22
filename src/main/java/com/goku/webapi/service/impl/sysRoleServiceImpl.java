@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.goku.webapi.mapper.ext.sysRoleExtMapper;
 import com.goku.webapi.model.sysRole;
 import com.goku.webapi.service.sysRoleService;
+import com.goku.webapi.util.dataview.TreeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,13 +34,18 @@ public class sysRoleServiceImpl implements sysRoleService {
     }
 
     @Override
+    public TreeInfo selectRoleTree() {
+        return null;
+    }
+
+    @Override
     public int addRole(sysRole sysrole) {
         return sysroleextmapper.insert(sysrole);
     }
 
     @Override
     public int modifyRole(sysRole sysrole) {
-        return sysroleextmapper.updateByPrimaryKey(sysrole);
+        return sysroleextmapper.updateByPrimaryKeySelective(sysrole);
     }
 
     @Override
