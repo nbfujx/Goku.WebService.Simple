@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goku.webapi.mapper.ext.sysConfigExtMapper">
+  <resultMap id="sysConfigMap" type="com.goku.webapi.model.sysConfig">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <select id="selectConfigList" resultMap="sysConfigMap">
+    select
+    id, `key`, value, status, remark
+    from sys_config
+    <where>
+      <if test="remark != null">
+        <bind name="remark" value="'%' + remark + '%'" />
+        remark LIKE #{remark}
+      </if>
+    </where>
+    <if test="orderFiled != null" >
+      order by  ${orderFiled}
+      <if test="orderSort != null" >
+        ${orderSort}
+      </if>
+    </if>
+  </select>
+  <select id="selectByKey" resultMap="sysConfigMap">
+     select
+    id, `key`, value, status, remark
+    from sys_config
+    where `key`=#{key}
+  </select>
+
+</mapper>

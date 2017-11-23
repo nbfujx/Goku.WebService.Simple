@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("sysLog")
-@Api(value="菜单管理")
+@Api(value="日志管理")
 public class sysLogControllerImpl implements sysLogController {
 
 
