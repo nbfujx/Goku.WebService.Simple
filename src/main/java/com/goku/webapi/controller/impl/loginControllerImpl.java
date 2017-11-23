@@ -11,7 +11,10 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.session.SessionException;
 import org.apache.shiro.subject.Subject;
@@ -64,10 +67,17 @@ public class loginControllerImpl implements loginController,ErrorController {
         token.setRememberMe(rememberMe);
         try {
             subject.login(token);
-        } catch (AuthenticationException e) {
+        }catch (UnknownAccountException e) {
+            e.printStackTrace();
+            return JSON.toJSONString (new  returnMsg(returnCode.NOUSER));
+        }catch (IncorrectCredentialsException e) {
+            e.printStackTrace();
+            return JSON.toJSONString (new  returnMsg(returnCode.USERNAMEORPASSWORD));
+        }catch (AuthenticationException e) {
             e.printStackTrace();
             return JSON.toJSONString (new  returnMsg(returnCode.ERROR));
         }
+
         return  JSON.toJSONString (new  returnMsg(returnCode.SUCCESS));
     }
 
@@ -106,7 +116,11 @@ public class loginControllerImpl implements loginController,ErrorController {
     public String error(HttpServletRequest request)
     {
         Map<String, Object> body = getErrorAttributes(request, getTraceParameter(request));
-        return  JSON.toJSONString (new  returnMsg(returnCode.ERROR,body));
+        if(body.get("exception").equals(UnauthenticatedException.class.getName())){
+            return JSON.toJSONString (new  returnMsg(returnCode.NOTAUTHZ,body.get("message")));
+        }else {
+            return JSON.toJSONString(new returnMsg(returnCode.ERROR, body));
+        }
     }
 
     @Override

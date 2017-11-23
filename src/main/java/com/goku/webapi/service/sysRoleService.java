@@ -2,7 +2,7 @@ package com.goku.webapi.service;
 
 import com.github.pagehelper.PageInfo;
 import com.goku.webapi.model.sysRole;
-import com.goku.webapi.util.dataview.TreeInfo;
+import com.goku.webapi.util.treehelper.TreeInfo;
 
 /**
  * Created by nbfujx on 2017-11-21.

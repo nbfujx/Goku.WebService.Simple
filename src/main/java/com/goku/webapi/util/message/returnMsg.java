@@ -7,26 +7,37 @@ import com.goku.webapi.util.enums.returnCode;
  */
 public class returnMsg {
 
-    private returnCode Code;
+    private int code;
+    private String desc;
     private Object Data;
 
     public returnMsg(returnCode Code)
     {
-        this.Code=Code;
+        this.code=Code.getCode();
+        this.desc=Code.getDesc();
     }
 
     public returnMsg(returnCode Code,Object Data)
     {
-        this.Code=Code;
+        this.code=Code.getCode();
+        this.desc=Code.getDesc();
         this.Data=Data;
     }
 
-    public returnCode getCode() {
-        return Code;
+    public int getCode() {
+        return code;
     }
 
-    public void setCode(returnCode code) {
-        Code = code;
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Object getData() {

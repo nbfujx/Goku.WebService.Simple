@@ -9,7 +9,8 @@ public enum returnCode {
     ERROR(40000,"error"),
     NOTAUTHC(40100,"not authc"),
     NOTAUTHZ(40101,"not authz"),
-    USERNAMEORPASSWORD(40401,"Username or Password Not Correct");
+    USERNAMEORPASSWORD(40401,"Username or Password Not Correct"),
+    NOUSER(40402," no User");
 
     private final int code;
     private final String desc;

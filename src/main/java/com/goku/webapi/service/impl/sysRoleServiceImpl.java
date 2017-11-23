@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.goku.webapi.mapper.ext.sysRoleExtMapper;
 import com.goku.webapi.model.sysRole;
 import com.goku.webapi.service.sysRoleService;
-import com.goku.webapi.util.dataview.TreeInfo;
+import com.goku.webapi.util.treehelper.TreeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

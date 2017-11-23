@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.goku.webapi.mapper.ext.sysMenuExtMapper;
 import com.goku.webapi.model.sysMenu;
 import com.goku.webapi.service.sysMenuService;
-import com.goku.webapi.util.dataview.TreeInfo;
+import com.goku.webapi.util.treehelper.TreeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

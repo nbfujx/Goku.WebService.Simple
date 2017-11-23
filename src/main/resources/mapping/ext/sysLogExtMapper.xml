@@ -19,10 +19,10 @@
         username=#{username}
       </if>
       <if test="startTime != null">
-        create_date&gt;=#{startTime}
+        create_date>=#{startTime}
       </if>
       <if test="endTime != null">
-        create_date&lt;=#{endTime}
+        create_date<![CDATA[ <= ]]> #{endTime}
       </if>
     </where>
     <if test="orderFiled != null" >
